@@ -1,0 +1,20 @@
+{
+
+  "manifest_version": 2,
+  "name": "Startpage-enhancer",
+  "version": "0.2",
+
+  "description": "Make Startpage more awesome. Currently it only supports adding the search-queue to the title of the tab but we are planning to add more!",
+
+  "icons": {
+    "48": "icons/icon.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.startpage.com/*"],
+      "js": ["enhance.js"]
+    }
+  ]
+
+}
