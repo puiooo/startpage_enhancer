@@ -1,28 +1,58 @@
+let queryInput = document.getElementsByName('query')[0];
+let searchTerm = queryInput.value;
+
+document.title = searchTerm +  " - Startpage.com";
+
 let googleMapsLink = document.createElement("a");
-googleMapsLink.classList.add("inline-nav-menu__link");
-googleMapsLink.classList.add("inline-nav-menu__link__post-link");
 googleMapsLink.text = "Google Maps";
+googleMapsLink.href = "https://maps.google.com?q=" + searchTerm;
 
 let osmLink = document.createElement("a");
-osmLink.classList.add("inline-nav-menu__link");
-osmLink.classList.add("inline-nav-menu__link__post-link");
 osmLink.text = "OpenStreetMap";
+osmLink.href = "https://www.openstreetmap.org/search?query=" + searchTerm;
 
-if(document.getElementById('query') !== null) {
-    document.title = document.getElementById('query').value +  ' - Startpage.com';
-	googleMapsLink.href = "https://maps.google.com?q=" + document.getElementById('query').value;
-	osmLink.href = "https://www.openstreetmap.org/search?query=" + document.getElementById('query').value;
+
+let menubar = document.getElementsByClassName('inline-nav-menu__container')[0];
+
+if(menubar === undefined) { // for some reason 'News' and 'Videos' Tab use different nav-bar-layout and css
+	osmLink.style = "text-decoration: inherit; color:inherit";
+	googleMapsLink.style = "text-decoration: inherit; color:inherit";
+	
+	menubar = document.getElementsByClassName('inline-nav')[0];
+	let menuItemClass = menubar.children[0].classList[0];
+	let menuItemClass2 = menubar.children[0].children[menubar.children[0].children.length-1].classList[0];
+	
+	let linkForm = document.createElement("form");
+	linkForm.classList.add(menuItemClass);
+	linkForm.action = "javascript:void(0);";
+	let buttonForForm = document.createElement("button");
+	buttonForForm.classList.add(menuItemClass2);
+	
+	buttonForForm.appendChild(googleMapsLink);
+	linkForm.appendChild(buttonForForm);
+	menubar.appendChild(linkForm);
+	
+	linkForm = document.createElement("form");
+	linkForm.classList.add(menuItemClass);
+	linkForm.action = "javascript:void(0);";
+	buttonForForm = document.createElement("button");
+	buttonForForm.classList.add(menuItemClass2);
+	
+	buttonForForm.appendChild(osmLink);
+	linkForm.appendChild(buttonForForm);
+	menubar.appendChild(linkForm);
 }
 else {
-    document.title = document.getElementById('q').value + ' - Startpage.com';
-	googleMapsLink.href = "https://maps.google.com?q=" + document.getElementById('q').value;
-	osmLink.href = "https://www.openstreetmap.org/search?query=" + document.getElementById('q').value;
+	googleMapsLink.classList.add("inline-nav-menu__link");
+	googleMapsLink.classList.add("inline-nav-menu__link__post-link");
+	
+	osmLink.classList.add("inline-nav-menu__link");
+	osmLink.classList.add("inline-nav-menu__link__post-link");
+	
+	
+	menubar.appendChild(googleMapsLink);
+	menubar.appendChild(osmLink);
 }
-
-let menubar = document.getElementsByClassName('inline-nav-menu__container')[0]
-
-menubar.appendChild(googleMapsLink);
-menubar.appendChild(osmLink);
 
 
 let resultList = document.getElementsByClassName("w-gl__result-url-container");
