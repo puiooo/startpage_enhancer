@@ -4,3 +4,5 @@ Find the published addon at https://addons.mozilla.org/de/firefox/addon/startpag
 
 # Current features (Feature requests always welcome):
 - Add search-term to the tab title
+- Add Google Maps & OpenStreetMap links to navbar
+- Show Favicon of search-results
