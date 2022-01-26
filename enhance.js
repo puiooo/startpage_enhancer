@@ -58,8 +58,9 @@ else {
 let resultList = document.getElementsByClassName("w-gl__result-url-container");
 
 for(let link of resultList) {
-	let searchResultLink = link.children[1].href;
+	let searchResultLink = new URL(link.children[1].href);
 	let faviconImg = document.createElement("img");
-	faviconImg.src = "https://s2.googleusercontent.com/s2/favicons?domain=" + searchResultLink;
-	link.appendChild(faviconImg);
+	faviconImg.src = "https://icon.horse/icon/" + searchResultLink.hostname;
+	link.prepend(faviconImg);
+	link.append(link.children[1]); //move private browsing to the right
 }
