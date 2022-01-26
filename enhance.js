@@ -60,7 +60,9 @@ let resultList = document.getElementsByClassName("w-gl__result-url-container");
 for(let link of resultList) {
 	let searchResultLink = new URL(link.children[1].href);
 	let faviconImg = document.createElement("img");
+	faviconImg.style.height = "18px";
 	faviconImg.src = "https://icon.horse/icon/" + searchResultLink.hostname;
 	link.prepend(faviconImg);
 	link.append(link.children[1]); //move private browsing to the right
+	link.children[1].style.marginLeft = "0.5rem"; // fix spacing
 }
