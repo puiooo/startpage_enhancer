@@ -1,60 +1,61 @@
+// Set search-title
 let queryInput = document.getElementsByName('query')[0];
 let searchTerm = queryInput.value;
-
 document.title = searchTerm +  " - Startpage.com";
 
+// Append Maps links
+let menubar = document.getElementsByClassName('categories')[0];
+
+let menuItemNr = document.body.textContent.includes('Any size') ? 0 : 1; // dirty workaround ;)
+
+let divItemClass = menubar.children[menuItemNr].classList[0];
+let formItemClass = menubar.children[menuItemNr].children[0].classList[0];
+let buttonItemClass = menubar.children[menuItemNr].children[0].children[menubar.children[0].children[0].children.length-1].classList[0];
+
+// - GMAPS Link
 let googleMapsLink = document.createElement("a");
+googleMapsLink.style = "text-decoration: inherit; color:inherit; white-space: nowrap;";
 googleMapsLink.text = "Google Maps";
 googleMapsLink.href = "https://maps.google.com?q=" + searchTerm;
 
+let linkDiv = document.createElement("div");
+linkDiv.classList.add(divItemClass);
+
+let linkForm = document.createElement("form");
+linkForm.classList.add(formItemClass);
+linkForm.action = "javascript:void(0);";
+
+let buttonForForm = document.createElement("button");
+buttonForForm.classList.add(buttonItemClass);
+
+buttonForForm.appendChild(googleMapsLink);
+linkForm.appendChild(buttonForForm);
+linkDiv.appendChild(linkForm);
+menubar.appendChild(linkDiv);
+
+// - OSM Link
 let osmLink = document.createElement("a");
+osmLink.style = "text-decoration: inherit; color:inherit; white-space: nowrap;";
 osmLink.text = "OpenStreetMap";
 osmLink.href = "https://www.openstreetmap.org/search?query=" + searchTerm;
 
+linkDiv = document.createElement("div");
+linkDiv.classList.add(divItemClass);
 
-let menubar = document.getElementsByClassName('inline-nav-menu__container')[0];
+linkForm = document.createElement("form");
+linkForm.classList.add(formItemClass);
+linkForm.action = "javascript:void(0);";
 
-if(menubar === undefined) { // for some reason 'News' and 'Videos' Tab use different nav-bar-layout and css
-	osmLink.style = "text-decoration: inherit; color:inherit";
-	googleMapsLink.style = "text-decoration: inherit; color:inherit";
-	
-	menubar = document.getElementsByClassName('inline-nav')[0];
-	let menuItemClass = menubar.children[0].classList[0];
-	let menuItemClass2 = menubar.children[0].children[menubar.children[0].children.length-1].classList[0];
-	
-	let linkForm = document.createElement("form");
-	linkForm.classList.add(menuItemClass);
-	linkForm.action = "javascript:void(0);";
-	let buttonForForm = document.createElement("button");
-	buttonForForm.classList.add(menuItemClass2);
-	
-	buttonForForm.appendChild(googleMapsLink);
-	linkForm.appendChild(buttonForForm);
-	menubar.appendChild(linkForm);
-	
-	linkForm = document.createElement("form");
-	linkForm.classList.add(menuItemClass);
-	linkForm.action = "javascript:void(0);";
-	buttonForForm = document.createElement("button");
-	buttonForForm.classList.add(menuItemClass2);
-	
-	buttonForForm.appendChild(osmLink);
-	linkForm.appendChild(buttonForForm);
-	menubar.appendChild(linkForm);
-}
-else {
-	googleMapsLink.classList.add("inline-nav-menu__link");
-	googleMapsLink.classList.add("inline-nav-menu__link__post-link");
-	
-	osmLink.classList.add("inline-nav-menu__link");
-	osmLink.classList.add("inline-nav-menu__link__post-link");
-	
-	
-	menubar.appendChild(googleMapsLink);
-	menubar.appendChild(osmLink);
-}
+buttonForForm = document.createElement("button");
+buttonForForm.classList.add(buttonItemClass);
+buttonForForm.appendChild(osmLink);
+
+linkForm.appendChild(buttonForForm);
+linkDiv.appendChild(linkForm);
+menubar.appendChild(linkDiv);
 
 
+// Add website-icons
 let resultList = document.getElementsByClassName("w-gl__result-url-container");
 
 for(let link of resultList) {

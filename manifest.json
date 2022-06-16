@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
   "name": "Startpage-enhancer",
-  "version": "0.3.2",
+  "version": "0.3.3",
 
   "description": "Make Startpage more awesome. Currently it supports adding the search-queue to the title of the tab, add Maps-Links and Favicons.",
 
