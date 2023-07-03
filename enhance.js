@@ -56,7 +56,16 @@ menubar.appendChild(linkDiv);
 
 
 // Add website-icons
-let resultList = document.getElementsByClassName("w-gl__result-url-container");
+let userAgent = window.navigator.userAgent;
+let isMobile = /Mobi/i.test(userAgent);
+
+// mobile website uses different class name
+if (!isMobile) {
+	let resultList = document.getElementsByClassName("w-gl__result-url-container");
+}
+else {
+	resultList = document.getElementsByClassName("result-url-container");
+}
 
 for(let link of resultList) {
 	let searchResultLink = new URL(link.children[1].href);
