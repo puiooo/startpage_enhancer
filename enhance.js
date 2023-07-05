@@ -45,7 +45,7 @@ function enhance() {
 
 
     // Add website-icons
-    let resultList = document.getElementsByClassName("w-gl__result-url-container");
+    let resultList = document.querySelectorAll('[class*="result-url-container"]');
 
     for (let link of resultList) {
         let searchResultLink = new URL(link.children[1].href);
