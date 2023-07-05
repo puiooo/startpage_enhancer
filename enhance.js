@@ -1,7 +1,7 @@
 // Set search-title
 let queryInput = document.getElementsByName('query')[0];
 let searchTerm = queryInput.value;
-document.title = searchTerm +  " - Startpage.com";
+document.title = searchTerm + " - Startpage.com";
 
 // Append Maps links
 let menubar = document.getElementsByClassName('categories')[0];
