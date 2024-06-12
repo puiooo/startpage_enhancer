@@ -1,4 +1,11 @@
 function enhance() {
+	
+	// hide our referral to icon.horse
+	var meta = document.createElement('meta');
+	meta.name = "referrer";
+	meta.content = "no-referrer";
+	document.getElementsByTagName('head')[0].appendChild(meta);
+	
     // Set search-title
     let queryInput = document.getElementsByName('query')[0];
     let searchTerm = queryInput !== undefined ? queryInput.value : undefined;
@@ -11,44 +18,29 @@ function enhance() {
     // Append Maps links
     let menubar = document.getElementsByClassName('categories')[0];
 
-    if (menubar === undefined) {
-        return;
-    }
-
     menubar.className = 'categories'; //removes additional styling
 
-    // - GMAPS Link
-    let googleMapsLink = document.createElement("a");
-    googleMapsLink.style = "text-decoration: inherit; color:inherit; white-space: nowrap;";
-    googleMapsLink.text = "Google Maps";
-    googleMapsLink.href = "https://maps.google.com?q=" + searchTerm;
-
-    let gmaps = menubar.lastChild.cloneNode(true);
-    let gmapsButton = gmaps.firstChild.lastChild;
-    gmapsButton.innerHTML = '';
-    gmapsButton.appendChild(googleMapsLink);
-
     // - OSM Link
+	let dropdownDisplay = document.querySelector('.dropdown-display');
+	
     let osmLink = document.createElement("a");
     osmLink.style = "text-decoration: inherit; color:inherit; white-space: nowrap;";
-    osmLink.text = "OpenStreetMap";
     osmLink.href = "https://www.openstreetmap.org/search?query=" + searchTerm;
 
-    let osmaps = menubar.lastChild.cloneNode(true);
-    let osmapsButton = osmaps.firstChild.lastChild;
-    osmapsButton.innerHTML = '';
-    osmapsButton.appendChild(osmLink);
-
-    // - add both
-    menubar.appendChild(gmaps);
-    menubar.appendChild(osmaps);
+	// last Dropdown-Entry is empty div tag, like they were waiting for me to fix the extension and add OpenStreetMaps ;)
+    let osmaps = dropdownDisplay.childNodes[dropdownDisplay.childElementCount-2].cloneNode(true);
+	osmaps.querySelector('span').textContent = "OpenStreetMap";
+	osmaps.querySelector('img').src = "https://icon.horse/icon/openstreetmap.com";
+	osmLink.appendChild(osmaps);
+    dropdownDisplay.appendChild(osmLink);
 
 
     // Add website-icons
-    let resultList = document.querySelectorAll('[class*="result-url-container"]');
+    let resultList = document.querySelectorAll('[class~="upper"]');
 
     for (let link of resultList) {
-        let searchResultLink = new URL(link.children[1].href);
+		link.querySelectorAll('a')
+        let searchResultLink = new URL(link.lastChild.href);
         let faviconImg = document.createElement("img");
         faviconImg.style.height = "18px";
         faviconImg.src = "https://icon.horse/icon/" + searchResultLink.hostname;
@@ -57,5 +49,4 @@ function enhance() {
         link.children[1].style.marginLeft = "0.5rem"; // fix spacing
     }
 }
-
 enhance();
