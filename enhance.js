@@ -1,6 +1,6 @@
 function enhance() {
 	
-	// hide our referral to icon.horse
+	// hide our referral, so startpage does not get problems with our extension :)
 	var meta = document.createElement('meta');
 	meta.name = "referrer";
 	meta.content = "no-referrer";
@@ -15,12 +15,11 @@ function enhance() {
     }
     document.title = searchTerm + " - Startpage.com";
 
-    // Append Maps links
+    // Append OSM link
     let menubar = document.getElementsByClassName('categories')[0];
 
     menubar.className = 'categories'; //removes additional styling
 
-    // - OSM Link
 	let dropdownDisplay = document.querySelector('.dropdown-display');
 	
     let osmLink = document.createElement("a");
@@ -39,7 +38,6 @@ function enhance() {
     let resultList = document.querySelectorAll('[class~="upper"]');
 
     for (let link of resultList) {
-		link.querySelectorAll('a')
         let searchResultLink = new URL(link.lastChild.href);
         let faviconImg = document.createElement("img");
         faviconImg.style.height = "18px";
@@ -49,4 +47,8 @@ function enhance() {
         link.children[1].style.marginLeft = "0.5rem"; // fix spacing
     }
 }
-enhance();
+var intervalId = window.setInterval(function(){
+  if(document.querySelectorAll('[src*="icon.horse"]').length === 0) {
+	enhance();
+  }
+}, 500);
